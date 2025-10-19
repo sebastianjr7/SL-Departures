@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SL Avgångar</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body onload="startClock(), fetchData()">
+    <header>
+        <div id="trafficStatus">
+            <h3>Trafik Status: [status]</h3>
+        </div>
+        <h2 id="clock"></h2>
+    </header>
+    
+    <main>
+        <!-- Dropdown menu with suggestions based on the text input -->
+        <section id="searchSection">
+            <h1>Från:</h1>
+            <label for="searchInput"></label>
+            <input type="text" id="searchInput" placeholder="Sök station..." oninput="searchStation()">
+            <button id="searchButton" onclick="searchStation()">Sök</button>
+        </section>
+
+        <h1 id="stationName"></h1>
+        <section>
+            <h1>Avgångar Norr</h1>
+            <table id="depTableNorth">
+                <thead>
+                    <tr>
+                        <th colspan="1">Linje</th>
+                        <th colspan="2">Destination</th>
+                        <th colspan="1">Minuter</th>
+                        <!-- <th colspan="1">Time</th> -->
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+        </section>
+        <section>
+            <h1>Avgångar Söder</h1>
+            <table id="depTableSouth">
+                <thead>
+                    <tr>
+                        <th colspan="1">Linje</th>
+                        <th colspan="2">Destination</th>
+                        <th colspan="1">Minuter</th>
+                        <!-- <th colspan="1">Time</th> -->
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+        </section>
+    </main>
+    
+</body>
+
+<script src="script.js"></script>
+
+</html>

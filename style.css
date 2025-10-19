@@ -1,0 +1,68 @@
+* {
+    /* box-sizing: border-box; */
+    margin: 0;
+    padding: 0;
+}
+body {
+    background-color: #010101;
+    color: #ffffff;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 18px;
+}
+header {
+    font-size: 2em;
+}
+
+
+#trafficStatus {
+    background-color: green;
+    /* background-color: darkgoldenrod; */
+    /* background-color: red; */
+}
+h1, h2, h3 {
+    text-align: center;
+    padding: 10px 0;
+}
+table {
+    margin: auto;
+    border-collapse: collapse;
+    color: #010101;
+    font-weight: 900;
+    max-width: 1200px;
+    width: 100%;
+    table-layout: fixed;
+}
+table td, th {
+    padding: 10px 50px;
+    /* text-align: center; */
+    
+}
+table thead {
+    font-size: 1em;
+    text-align: left;
+}
+table thead tr {
+    background-color: #7dbeff;    
+}
+table tbody {
+    font-size: 1.5em;
+}
+table tbody tr{
+    background-color: #F1F2F3;
+    border-top: #010101 solid 5px;
+}
+tbody tr:first-child {
+    font-size: 2.5rem;
+}
+th:first-child, td:first-child {
+    /* background-color: #b30808; */
+    /* width: 100px; */
+    text-align: left;
+    
+}
+th:last-child, td:last-child {
+    /* background-color: #00ff37; */
+    /* width: fit-content; */
+    /* width: 200px; */
+    text-align: right;
+}
