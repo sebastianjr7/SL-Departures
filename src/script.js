@@ -1,3 +1,5 @@
+import { getDepartures } from "./api.js"; 
+
 const northTableBody = document.querySelector("#depTableNorth tbody");
 const souhtTableBody = document.querySelector("#depTableSouth tbody");
 const stationName = document.querySelector("#stationName")
@@ -28,42 +30,40 @@ function fetchSites() {
 };
 setInterval(fetchSites, 5_000);
 
-function fetchData() {
-  fetch(BASE_URL + "/9729/departures")
-  .then(response => response.json())
-  .then(data => {
-    // console.log('Received data:', data);
-    northTableBody.innerHTML = ""; //Clears north table from previous fetch cycle
-    souhtTableBody.innerHTML = ""; //Clears south table from previous fetch cycle
+async function fetchData() {
+  northTableBody.innerHTML = ""; //Clears north table from previous fetch cycle
+  souhtTableBody.innerHTML = ""; //Clears south table from previous fetch cycle
 
-    data.departures.forEach(dep => {
-      const row = document.createElement("tr");
+  const siteId = "9729";
+  const departures = await getDepartures(siteId);
+  console.log('Received data:', departures);
 
-      if (dep.line.transport_mode == "TRAIN"){ 
-        stationName.innerHTML = `${dep.stop_area.name}`
-        document.title = `${dep.stop_area.name} Avgångar`;
+  for (let i = 0; i < departures.length; i++) {
+  // departures.forEach(dep => {
+    const row = document.createElement("tr");
 
-        // trafficStatus.innerHTML = `<h3>Trafik Status: ${dep.journey.state}</h3>`;
-        // console.log(dep.journey.prediction_state);
-        // console.log(dep.destination,": ",dep.journey);
+    if (departures[i].line.transport_mode == "TRAIN"){
+      stationName.innerHTML = `${departures[i].stop_area.name}`
+      document.title = `${departures[i].stop_area.name} Avgångar`;
 
-        row.innerHTML = `
-        <td colspan="1">${dep.line.id}</td>
-        <td colspan="2">${dep.destination}</td>
-        <td colspan="1">${getMinutesUntilDeparture(dep.scheduled)}</td>
-        `;
-        //<td colspan="1">${dep.display}</td>
-        
-        if(dep.direction_code == 2) { //2 is for north, 1 is for south
-          northTableBody.appendChild(row) //north direction
-        } else {
-          souhtTableBody.appendChild(row) //south direction
-        }
+      // trafficStatus.innerHTML = `<h3>Trafik Status: ${dep.journey.state}</h3>`;
+      // console.log(dep.journey.prediction_state);
+      // console.log(dep.destination,": ",dep.journey);
+
+      row.innerHTML = `
+      <td colspan="1">${departures[i].line.id}</td>
+      <td colspan="2">${departures[i].destination}</td>
+      <td colspan="1">${getMinutesUntilDeparture(departures[i].scheduled)}</td>
+      `;
+      //<td colspan="1">${dep.display}</td>
+      
+      if(departures[i].direction_code == 2) { //2 is for north, 1 is for south
+        northTableBody.appendChild(row) //north direction
+      } else {
+        souhtTableBody.appendChild(row) //south direction
       }
-});
-
-  })
-  .catch(error => console.error('Error fetching data:', error));
+    }
+  }
 }
 setInterval(fetchData, 10_000);
 
